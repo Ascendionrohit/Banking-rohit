@@ -3,27 +3,27 @@ pipeline{
     stages{
         stage('checkout the code from github'){
             steps{
-                 git url: 'https://github.com/akshu20791/Banking-java-project/'
+                 git url: 'https://github.com/Ascendionrohit/Banking-rohit/'
                  echo 'github url checkout'
             }
         }
-        stage('codecompile with akshat'){
+        stage('codecompile with rohit'){
             steps{
                 echo 'starting compiling'
                 sh 'mvn compile'
             }
         }
-        stage('codetesting with akshat'){
+        stage('codetesting with rohit'){
             steps{
                 sh 'mvn test'
             }
         }
-        stage('qa with akshat'){
+        stage('qa with rohit'){
             steps{
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-        stage('package with akshat'){
+        stage('package with rohit'){
             steps{
                 sh 'mvn package'
             }
