@@ -33,18 +33,18 @@ pipeline {
                 sh 'docker build -t banking-rohit .'
             }
         }
-        stage('Expose Port') {
-            steps {
-                sh 'docker run -d -p 8081:8081 banking-rohit:latest'
-            }
-        }
+      //  stage('Expose Port') {
+       //     steps {
+       //         sh 'docker run -d -p 8081:8081 banking-rohit:latest'
+        //    }
+       // }
         stage('Push Image to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')])  {
                     sh "docker login -u $docker_user -p $docker_pass"
                 }
-                sh "docker tag banking-rohit:latest $docker_user/banking-rohit:latest"
-                sh "docker push $docker_user/banking-rohit:latest"
+                sh "docker tag banking-rohit:latest sainirohit82733/banking-rohit:latest"
+                sh "docker push sainirohit82733/banking-rohit:latest"
             }
         }
     }
