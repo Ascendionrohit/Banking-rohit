@@ -30,14 +30,14 @@ pipeline {
         }
         stage('run dockerfile') {
             steps {
-                sh 'docker build -t myimg .'
+                sh 'docker build -t Banking-rohit .'
             }
         }
-       // stage('port expose') {
-        //    steps {
-        //        sh 'docker run -dt -p 8091:8091 --name c000 myimg'
-         //   }
-        // }
+        stage('port expose') {
+            steps {
+                 sh "docker run -d -p 8081:8081 Banking-rohit:latest"
+            }
+         }
         stage('pushing image to docker hub account') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'docker_password', usernameVariable: 'docker_user')]) {
