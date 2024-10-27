@@ -1,50 +1,51 @@
 pipeline {
     agent any
     stages {
-        stage('checkout the code from github') {
+        stage('Checkout Code from GitHub') {
             steps {
                 git url: 'https://github.com/Ascendionrohit/Banking-rohit/'
-                echo 'github url checkout'
+                echo 'GitHub URL checked out'
             }
         }
-        stage('codecompile with rohit') {
+        stage('Compile Code') {
             steps {
-                echo 'starting compiling'
+                echo 'Starting code compilation'
                 sh 'mvn compile'
             }
         }
-        stage('codetesting with rohit') {
+        stage('Run Tests') {
             steps {
                 sh 'mvn test'
             }
         }
-        stage('qa with rohit') {
+        stage('Run QA Checkstyle') {
             steps {
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-        stage('package with rohit') {
+        stage('Package Application') {
             steps {
                 sh 'mvn package'
             }
         }
-        stage('run dockerfile') {
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t banking-rohit .'
             }
         }
-        stage('port expose') {
+        stage('Expose Port') {
             steps {
-                 sh "docker run -d -p 8081:8081 banking-rohit:latest"
+                sh 'docker run -d -p 8081:8081 banking-rohit:latest'
             }
-         }
-        stage('pushing image to docker hub account') {
+        }
+        stage('Push Image to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'docker_password', usernameVariable: 'docker_user')]) {
                     sh "docker login -u $docker_user -p $docker_password"
                 }
+                sh "docker tag banking-rohit:latest $docker_user/banking-rohit:latest"
+                sh "docker push $docker_user/banking-rohit:latest"
             }
         }
     }
 }
-
