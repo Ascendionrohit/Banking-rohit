@@ -30,12 +30,12 @@ pipeline {
         }
         stage('run dockerfile') {
             steps {
-                sh 'docker build -t Banking-rohit .'
+                sh 'docker build -t banking-rohit .'
             }
         }
         stage('port expose') {
             steps {
-                 sh "docker run -d -p 8081:8081 Banking-rohit:latest"
+                 sh "docker run -d -p 8081:8081 banking-rohit:latest"
             }
          }
         stage('pushing image to docker hub account') {
