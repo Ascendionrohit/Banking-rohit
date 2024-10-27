@@ -40,8 +40,8 @@ pipeline {
         }
         stage('Push Image to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'docker_password', usernameVariable: 'docker_user')]) {
-                    sh "docker login -u $docker_user -p $docker_password"
+                withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')])  {
+                    sh "docker login -u $docker_user -p $docker_pass"
                 }
                 sh "docker tag banking-rohit:latest $docker_user/banking-rohit:latest"
                 sh "docker push $docker_user/banking-rohit:latest"
