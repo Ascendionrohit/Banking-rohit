@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Expose Port') {
             steps {
-                sh 'docker run -d -p 8081:8091 banking-rohit:latest'
+                sh 'docker run -d -p 8081:8081 banking-rohit:latest'
             }
         }
         stage('Push Image to Docker Hub') {
